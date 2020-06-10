@@ -1,6 +1,0 @@
-
-GPi_Case_patch/install_patch.bat
-GPi_Case_patch/patch_files/config.txt
-GPi_Case_patch/patch_files/overlays/dpi24.dtbo
-GPi_Case_patch/patch_files/overlays/pwm-audio-pi-zero.dtbo
-GPi_Case_patch/uninstall_patch.bat
