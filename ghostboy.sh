@@ -40,6 +40,7 @@ sudo git clone https://github.com/ghostbusker/GhostBoy
 
 cd GhostBoy
 
+# move custom config files and scripts to SD card
 sudo mv rc /home/pi/.config/cmus
 sudo mv ghostboy.theme /home/pi/.config/cmus/
 sudo mv xboxdrv.cfg /home/pi/.config/
@@ -60,8 +61,12 @@ sudo raspi-config nonint do_boot_wait 1
 # boot to shell and log-in as pi
 sudo raspi-config nonint do_boot_behaviour B2
 
+# make music player script executable
+sudo chmod +x /home/pi/BuskPod.sh
+
 # finally, add our music player script to run on log-in 
 echo "bash /home/pi/BuskPod.sh" >> /home/pi/.profile
+
 
 # set hostname
 sudo hostname BuskPod
@@ -87,6 +92,9 @@ END
 # set pi user password as default SMB share password
 sudo smbpasswd -a pi
 
+
+# BOOT DIRECTLY TO TERMINAL
+# DISABLE WAIT FOR NETWORK ON BOOT
 
 # add custom boot animation, backgrounds, and graphics
 # add tmux and vis to provide a real-time eq effect?

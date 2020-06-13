@@ -1,6 +1,6 @@
 #!/bin/bash
 
+sudo xboxdrv &
 sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv.cfg &
-exec sudo cmus --show-cursor 
-sleep 5s
-sudo cmus-remote -l "/home/pi/Music"
+( sleep 3s ; cmus-remote -l "/home/pi/Music" ) &
+exec cmus --show-cursor
