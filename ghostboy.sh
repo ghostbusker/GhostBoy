@@ -25,54 +25,58 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git
-sudo apt -y install cmus
-sudo apt -y install xboxdrv
-
-
-# generate directories before adding files
-sudo mkdir /home/pi/.config
-sudo mkdir /home/pi/.config/cmus
-suso mkdir /home/pi/Music
+sudo apt -y install git cmus xboxdrv lolcat figlet cmatrix feh compton mpv nemo samba samba-common-bin
 
 # download repository and distribute files
 sudo git clone https://github.com/ghostbusker/GhostBoy
 
 cd GhostBoy
 
+# generate directories before adding files
+sudo mkdir /home/pi/.config
+sudo mkdir /home/pi/.config/cmus
+sudo mkdir /home/pi/.config/i3
+sudo mkdir /home/pi/Music
+
 # move custom config files and scripts to SD card
-sudo mv rc /home/pi/.config/cmus
-sudo mv ghostboy.theme /home/pi/.config/cmus/
-sudo mv xboxdrv.cfg /home/pi/.config/
-sudo mv dpi24.dtbo /boot/overlays/
-sudo mv pwm-audio-pi-zero.dtbo /boot/overlays/
-sudo mv config.txt /boot/
+sudo mv .config/cmus/rc /home/pi/.config/cmus
+sudo mv .config/cmus/ghostboy.theme /home/pi/.config/cmus/
+sudo mv .config/i3/config /home/pi/.config/i3/
+sudo mv .config/i3status/config /home/pi/.config/i3status/
+sudo mv .config/compton.conf /home/pi/.config/
+sudo mv .config/xboxdrv.cfg /home/pi/.config/
+sudo mv .config/xboxdrv2.cfg /home/pi/.config/
+
+sudo mv boot/overlays/dpi24.dtbo /boot/overlays/
+sudo mv boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/
+sudo mv boot/config.txt /boot/
+
 sudo mv BuskPod.sh /home/pi/
 
 # set permissions, could be trouble otherwise
 sudo chown pi:pi /home/pi/*
+sudo chown pi:pi /home/pi/.*
 
 # enable ssh
 sudo raspi-config nonint do_ssh 0
 
+# boot to shell and log-in as pi
+sudo -u pi raspi-config nonint do_boot_behaviour B2
+
 # avoid wait for network on boot
 sudo raspi-config nonint do_boot_wait 1
-
-# boot to shell and log-in as pi
-sudo raspi-config nonint do_boot_behaviour B2
 
 # make music player script executable
 sudo chmod +x /home/pi/BuskPod.sh
 
 # finally, add our music player script to run on log-in 
-echo "bash /home/pi/BuskPod.sh" >> /home/pi/.profile
+#echo "bash /home/pi/BuskPod.sh" >> /home/pi/.profile
 
+# instead, go straight to desktop after login 
+echo "startx" >> /home/pi/.profile
 
 # set hostname
 sudo hostname BuskPod
-
-# setup samba share for /home/pi/Music folder on network for adding songs
-sudo apt install samba samba-common-bin
 
 desktopFromScratch () {
   echo "installer: installing graphical desktop environment"
@@ -91,18 +95,15 @@ desktopFromScratch () {
   sudo ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
   sudo make -j8
   sudo make install
-  echo "installing apps that will be part of desktop composition and daily use"
-  sudo apt -yq install i3blocks feh compton clipit arandr mpv florence dunst nemo conky dhcpcd-gtk wpagui
-  echo "installing wifi and bluetooth tools"
-  sudo apt -yq install pi-bluetooth blueman bluealsa network-manager
 }
 
 desktopFromScratch
 
 scrapeWallpapers() { # this whole module not working
   echo "installer: scraping wallpapers from the web" #shamelessly
-  sudo mkdir /home/$targetUser/Pictures/Wallpapers
-  cd /home/$targetUser/Pictures/Wallpapers
+  sudo mkdir /home/pi/Pictures/
+  ersudo mkdir /home/pi/Pictures/Wallpapers
+  cd /home/pi/Pictures/Wallpapers
   sudo wget https://cdn.clipart.email/ea453281dbdec70a2bf5b70464f41e4f_desert-sand-background-gallery-yopriceville-high-quality-_5500-3667.jpeg
   sudo wget http://getwallpapers.com/wallpaper/full/2/2/3/702223-free-rainforest-backgrounds-2560x1440.jpg
   sudo wget http://getwallpapers.com/wallpaper/full/9/d/6/702176-rainforest-backgrounds-1920x1080-for-mac.jpg
@@ -140,18 +141,18 @@ scrapeWallpapers
 sudo cat <<END >> /etc/samba/smb.conf
 wins support = yes
 [BuskPod]
-   comment=BuskPod Music Share
-   path=/home/pi/Music
-   browseable=Yes
-   writeable=Yes
-   only guest=no
-   create mask=0777
-   directory mask=0777
-   public=yes
+   comment = BuskPod Music Share
+   path = /home/pi/Music
+   browseable = yes
+   writeable = yes
+   only guest = no
+   create mask = 0777
+   directory mask = 0777
+   public = yes
 END
 
 # set pi user password as default SMB share password
-sudo smbpasswd -a pi
+#sudo smbpasswd -a pi
 
 
 # BOOT DIRECTLY TO TERMINAL
