@@ -1,0 +1,324 @@
+#
+# i3 config file (v4)
+#
+
+set $mod Mod4
+
+#transparancy effect
+exec compton -f -b
+exec sudo killall xboxdrv
+exec sudo xboxdrv &
+exec sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv2.cfg &
+
+#set wallpaper, then change every -n seconds, maybe add some imagemagick to script to make unique
+#exec feh --randomize --bg-fill ~/Pictures/Wallpapers/*
+exec watch -n 90 feh --randomize --bg-fill ~/Pictures/Wallpapers/*
+
+#fetch a new weather image every 15 minutes and rename it weather.png
+exec watch -n 900 wget -O /tmp/weather.png https://s.w-x.co/staticmaps/wu/wxtype/county_loc/csg/animate.png
+#for_window [class="mpv"] floating enable
+
+#hoping that moving this closer to top of file makes it work better.
+for_window [class="florence"] floating enable
+
+############Invisible background apps###############
+#get the clipboard manager and OSK running (and floating!)
+#exec --no-startup-id tilda --config ~/.config/tilda
+#exec --no-startup-id tilda ~/.config/tilda
+#exec --no-startup-id clipit --daemon
+#exec --no-startup-id dunst
+#exec --no-startup-id dhcpcd-gtk
+#exec --no-startup-id nm-tray
+#exec --no-startup-id blueman-applet
+#exec --no-startup-id florence --use-config=.config/florence.conf
+
+#launch ovpn and connect
+#exec --no-startup-id openvpn ~./location/of/ovpn-file.ovpn
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+############# Workspace Setup ##############
+#exec --no-startup-id i3-msg workspace $ws1
+#exec --no-startup-id conky
+exec xterm -e "( sleep 3s ; cmus-remote -l "/home/pi/Music" ) & ; cmus --show-cursor"
+
+exec xterm -e htop
+exec xterm -e "pipes.sh -p 5 -f 12 -r 20000"
+exec xterm -e "cmatrix -ab -C magenta"
+
+### weather stuff ###
+exec xterm -e bash ~/.config/scripts/weather.sh
+exec mpv --loop --no-osc --background=0/0/0/0 --framedrop=vo /tmp/weather.png 
+
+#exec --no-startup-id i3-msg workspace $ws2
+#exec xterm -e "nmon" 
+#exec xterm -e "cmatrix -ab"
+#exec xterm -e "cmatrix -ab -C yellow"
+#exec xterm -e ranger
+
+#exec i3-msg workspace $ws3
+#exec chromium-browser
+
+# (Being a command-line utility, i3-msg does not support startup notifications,
+#  hence the exec --no-startup-id.)
+# (Starting iceweasel with i3’s exec command is important in order to make i3
+#  create a startup notification context, without which the iceweasel window(s)
+#  cannot be matched onto the workspace on which the command was started.)
+# exec --no-startup-id i3-msg 'workspace $ws3; exec chromium-browser; workspace $ws1'
+
+#this doesnt work
+#for_window [class="chromium"] move container to workspace 2
+
+# Make all urxvts use a 1-pixel border:
+#for_window [class="urxvt"] border pixel 1
+
+# A less useful, but rather funny example:
+# makes the window floating as soon as I change
+# directory to ~/work
+#for_window [title="x200: ~/work"] floating enable
+
+#limits all chrome windows to workspace3. not really desired after testing
+assign [class="Chromium"] $ws3
+
+############Mouse#############
+
+focus_follows_mouse no
+mouse_warping output
+
+#############Main i3 controls#################
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+##########Colors #############################
+# most of these wont be visible when using i3-gaps
+# class                 border  bground text    indicator child_border
+client.focused          #336633 #339933 #F0FFF0 #33CC33   #44DD44
+client.focused_inactive #333333 #5F676A #C0CCC0 #484E50   #5F676A
+client.unfocused        #333333 #222222 #808880 #292D2E   #222222
+client.urgent           #2F343A #900000 #C0CCC0 #900000   #900000
+client.placeholder      #000000 #0C0C0C #C0CCC0 #000000   #0C0C0C
+client.background       #CCFFCC
+
+#################App Launch Hotkeys###################
+
+# start a terminal
+bindsym $mod+Return exec xterm
+
+# start dmenu (a program launcher) with prefered colors
+bindsym $mod+d exec "dmenu_run -nf '#C0CCC0' -nb '#336633' -sb '#CC3300' -sf '#f0fff0' -fn 'monospace-10' -p 'run > '"
+
+# run script to toggle compton transpancy on all windows.
+bindsym $mod+F12 exec ~/.config/scripts/compton_toggle.sh
+
+#Tilda terminal navtively uses F1 as a hotkey, no need to duplicate here
+
+###################Needed for i3-gaps####################################
+#hide_edge_borders both
+for_window [class="^.*"] border pixel 2 
+gaps inner 15 
+gaps outer 15
+
+bindsym $mod+z		gaps outer current plus 5
+bindsym $mod+Shift+z	gaps outer current minus 5
+
+####################Fonts #################################
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:ANONYMOUS PRO 10
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+####################Window Control##########################
+
+default_orientation vertical
+
+# toggle split direction for each new window
+for_window [class="^"] split toggle
+
+# toggle tiling / floating
+#bindsym $mod+Shift+space floating toggle
+bindsym $mod+w floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# kill focused window
+bindsym $mod+Shift+q kill
+bindsym $mod+F4 kill
+bindsym $mod+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal or vertical orientation
+#bindsym $mod+v split vertical
+#bindsym $mod+h split horizontal
+bindsym $mod+t split toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking toggle
+#bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# focus the parent container
+#bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1: System"
+set $ws2 "2: Term"
+set $ws3 "3: Browse"
+set $ws4 "4: Edit"
+set $ws5 "5: Extra"
+set $ws6 "6: Bonus"
+set $ws7 "7: More"
+set $ws8 "8: Excess"
+set $ws9 "9: Nauseum"
+set $ws10 "10: Fin"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+bindsym Mod1+Tab workspace next
+bindsym Mod1+Shift+Tab workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod mode "default"
+        bindsym Tab mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+################### BAR ######################
+# bar toggle, hide or show 
+bindsym $mod+b bar mode toggle
+
+##########################################
+
+#We're going dual bars here ppl, better buckle up
+#first the  top bar
+bar {
+        position top
+        status_command i3blocks -c ~/.config/i3blocks/config
+        tray_output primary
+        workspace_buttons no
+        #strip_workspace_numbers yes 
+        mode hide
+        hidden_state hide
+        modifier $mod
+        colors {
+                background #003300
+                statusline #CC3300
+        }
+}
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        position bottom
+        status_command i3status -c ~/.config/i3status/config
+        tray_output primary
+        workspace_buttons yes
+        strip_workspace_numbers no
+        separator_symbol |
+        mode dock
+        hidden_state show
+        modifier $mod
+        colors {
+                background #003300
+                statusline #CCFFCC
+                separator  #666666
+
+                focused_workspace  #339933 #CC3300 #F0FFF0
+                active_workspace   #006600 #336633 #CCFFCC
+                inactive_workspace #333333 #003300 #808880
+                urgent_workspace   #996633 #CC0000 #CCFFCC
+                binding_mode       #663300 #993300 #CCFFCC
+        }
+}
