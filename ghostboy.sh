@@ -102,7 +102,7 @@ desktopFromScratch
 scrapeWallpapers() { # this whole module not working
   echo "installer: scraping wallpapers from the web" #shamelessly
   sudo mkdir /home/pi/Pictures/
-  ersudo mkdir /home/pi/Pictures/Wallpapers
+  sudo mkdir /home/pi/Pictures/Wallpapers
   cd /home/pi/Pictures/Wallpapers
   sudo wget https://cdn.clipart.email/ea453281dbdec70a2bf5b70464f41e4f_desert-sand-background-gallery-yopriceville-high-quality-_5500-3667.jpeg
   sudo wget http://getwallpapers.com/wallpaper/full/2/2/3/702223-free-rainforest-backgrounds-2560x1440.jpg
@@ -145,9 +145,11 @@ wins support = yes
    path = /home/pi/Music
    browseable = yes
    writeable = yes
-   only guest = no
-   create mask = 0777
-   directory mask = 0777
+   read only = no
+   guest ok = yes
+#   only guest = no
+#   create mask = 0777
+#   directory mask = 0777
    public = yes
 END
 

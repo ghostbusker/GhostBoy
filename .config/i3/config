@@ -1,14 +1,16 @@
-#
+# 
 # i3 config file (v4)
 #
+# for the GhostBoy
 
 set $mod Mod4
 
 #transparancy effect
 exec compton -f -b
-exec sudo killall xboxdrv
-exec sudo xboxdrv &
-exec sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv2.cfg &
+
+exec "sudo killall xboxdrv"
+exec "sudo xboxdrv &"
+exec "sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv2.cfg &"
 
 #set wallpaper, then change every -n seconds, maybe add some imagemagick to script to make unique
 #exec feh --randomize --bg-fill ~/Pictures/Wallpapers/*
