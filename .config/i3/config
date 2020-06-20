@@ -127,13 +127,13 @@ for_window [class="^"] split toggle
 
 # toggle tiling / floating
 #bindsym $mod+Shift+space floating toggle
-bindsym $mod+w floating toggle
+#bindsym $mod+w floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+#floating_modifier $mod
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -190,6 +190,11 @@ set $ws2 "2: Term"
 set $ws3 "3: Sys"
 set $ws4 "4: Weather"
 set $ws5 "5: Matrix"
+set $ws6 "6: Six"
+set $ws7 "7: Seven"
+set $ws8 "8: Eight"
+set $ws9 "9: Nine"
+set $ws10 "10: Ten"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -197,6 +202,11 @@ bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -204,12 +214,22 @@ bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
 
-bindsym $mod+Tab workspace next
+# rotate through workspaces using L and R triggers
+bindsym $mod+r workspace next
+bindsym $mod+l workspace back
 #bindsym Mod1+Shift+Tab workspace prev
 #bindsym $mod+Tab workspace back_and_forth
 
-# resize window (you can also use the mouse for that)
+
+### resize window (you can also use the mouse for that)
+#bindsym $mod+r mode "resize"
+
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -236,9 +256,6 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
-
-
 ################### BAR ######################
 # bar toggle, hide or show 
 bindsym $mod+b bar mode toggle
@@ -250,7 +267,7 @@ bar {
         status_command i3status -c ~/.config/i3status/config
         tray_output primary
         workspace_buttons yes
-        strip_workspace_numbers no
+        strip_workspace_numbers yes
         separator_symbol |
         mode hide
         hidden_state hide

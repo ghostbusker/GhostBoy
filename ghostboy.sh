@@ -27,7 +27,8 @@ sudo apt update
 # install needed apps
 sudo apt -y install git cmus xboxdrv ranger vis lolcat figlet cmatrix feh compton mpv nemo tty-clock samba samba-common-bin 
 
-# download repository and distribute files
+# download repository and distribute files (remove old copy first)
+sudo rm -rf GhostBoy
 sudo git clone https://github.com/ghostbusker/GhostBoy
 cd GhostBoy
 
@@ -38,19 +39,20 @@ sudo mkdir /home/pi/.config/i3
 sudo mkdir /home/pi/Music
 
 # move custom config files and scripts to SD card
-sudo mv -rf .config/cmus/rc /home/pi/.config/cmus
-sudo mv -rf .config/cmus/ghostboy.theme /home/pi/.config/cmus/
-sudo mv -rf .config/i3/config /home/pi/.config/i3/
-sudo mv -rf .config/i3status/config /home/pi/.config/i3status/
-sudo mv -rf .config/compton.conf /home/pi/.config/
-sudo mv -rf .config/xboxdrv.cfg /home/pi/.config/
-sudo mv -rf .config/xboxdrv2.cfg /home/pi/.config/
+#sudo mv -f .config/cmus/rc /home/pi/.config/cmus
+#sudo mv -f .config/cmus/ghostboy.theme /home/pi/.config/cmus/
+#sudo mv -f .config/i3/config /home/pi/.config/i3/
+#sudo mv -f .config/i3status/config /home/pi/.config/i3status/
+#sudo mv -f .config/compton.conf /home/pi/.config/
+#sudo mv -f .config/xboxdrv.cfg /home/pi/.config/
+sudo mv -f .config/* /home/pi/.config
 
-sudo mv -rf boot/overlays/dpi24.dtbo /boot/overlays/
-sudo mv -rf boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/
-sudo mv -rf boot/config.txt /boot/
+#sudo mv -f boot/overlays/dpi24.dtbo /boot/overlays/
+#sudo mv -f boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/
+#sudo mv -f boot/config.txt /boot/
+sudo mv -f boot/* /boot
 
-sudo mv -rf BuskPod.sh /home/pi/
+sudo mv -f BuskPod.sh /home/pi/
 
 # set permissions, could be trouble otherwise
 sudo chown pi:pi /home/pi/*
@@ -69,11 +71,12 @@ sudo raspi-config nonint do_boot_wait 1
 # make music player script executable
 sudo chmod +x /home/pi/BuskPod.sh
 
-# finally, add our music player script to run on log-in 
-#echo "bash /home/pi/BuskPod.sh" >> /home/pi/.profile
-
-# instead, go straight to desktop after login 
-echo "startx" >> /home/pi/.profile
+# go straight to desktop after login (this is not the correct way of doing this)
+if grep -q "startx" /home/pi/.profile; then
+	echo "boot-to-destop from cli already enabled."
+else
+	echo "startx" >> /home/pi/.profile
+fi
 
 # set hostname
 sudo hostname BuskPod
