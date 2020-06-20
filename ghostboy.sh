@@ -25,7 +25,10 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus xboxdrv ranger vis lolcat figlet cmatrix feh compton mpv nemo tty-clock samba samba-common-bin 
+sudo apt -y install git cmus ncmpcpp mpd mpc mpv xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock samba samba-common-bin 
+
+# trying out this cli based player that supports cloud services like youtube, soundcloud, spotify, etc.
+curl -kL https://github.com/tizonia/tizonia-openmax-il/raw/master/tools/install.sh | bash
 
 # download repository and distribute files (remove old copy first)
 sudo rm -rf GhostBoy
@@ -61,7 +64,7 @@ sudo chown pi:pi /home/pi/.*
 # enable ssh
 sudo raspi-config nonint do_ssh 0
 
-# boot to shell and log-in as pi
+# boot to shell and log-in as pi - NOT WORKING, MUST BE DONE MANUALLY AFTER SETUP via raspi-config
 #sudo raspi-config nonint do_boot_behaviour B2
 sudo systemctl set-default multi-user.target
 
@@ -164,12 +167,16 @@ fi
 # set pi user password as default SMB share password
 #sudo smbpasswd -a pi
 
+# add graphical refrence to first screen showing buttons and how to navigate
 
-# BOOT DIRECTLY TO TERMINAL
-# DISABLE WAIT FOR NETWORK ON BOOT
+# create custom whiptail menu script that controls basic GhostBoy functions, leave it accesable on last workspace
 
 # add custom boot animation, backgrounds, and graphics
+
 # add tmux and vis to provide a real-time eq effect?
+
 # run i3 wm and show multiple pages of info
+
 # sound quality is passable but in need of upgrade,
+
 # conside rusing pcm5102 DAC module (headphone amp needed) for audio

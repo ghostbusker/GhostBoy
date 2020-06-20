@@ -8,12 +8,7 @@ set $mod Mod4
 #transparancy effect
 exec compton -f -b
 
-#exec "sudo killall xboxdrv"
-#exec "sudo xboxdrv &"
-#exec "sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv2.cfg &"
-
 #set wallpaper, then change every -n seconds, maybe add some imagemagick to script to make unique
-#exec feh --randomize --bg-fill ~/Pictures/Wallpapers/*
 exec watch -n 90 feh --randomize --bg-fill ~/Pictures/Wallpapers/*
 
 # switch to workspace with urgent window automatically
@@ -23,19 +18,20 @@ for_window [urgent=latest] focus
 
 ### ws1 is for Music ###
 exec --no-startup-id i3-msg workspace $ws1
-#exec --no-startup-id ( sleep 3s ; cmus-remote -l "/home/pi/Music" ) &
-exec xterm -e "./BuskPod.sh"
+exec xterm -e "./BuskPod.sh" -t cmus
+assign [title="cmus"] $ws1
 
-### ws2 is for Terminal ###
+### ws2 is for Time ###
 exec --no-startup-id i3-msg workspace $ws2
-exec xterm -e "figlet ghstbskr | lolcat ; bash"
+exec xterm -e "tty-clock -nsxB" -t tty-clock
+assign [title="tty-clock"] $ws2
 
 ### ws1 is for System Monitoring ###
 exec --no-startup-id i3-msg workspace $ws3
-exec xterm -e htop
-exec xterm -e "tty-clock -nsxB"
+exec xterm -e htop -t htop
+assign [title="htop"] $ws3
 
-### weather stuff on ws4 ###
+### ws4 is for Weather ###
 exec --no-startup-id i3-msg workspace $ws4
 #fetch a new weather image every 15 minutes and rename it weather.png
 exec watch -n 900 wget -O /tmp/weather.png https://s.w-x.co/staticmaps/wu/wxtype/county_loc/csg/animate.png
@@ -45,8 +41,19 @@ assign [class="mpv"] $ws4
 
 ### ws5 is for cMatrix ###
 exec --no-startup-id i3-msg workspace $ws5
-exec xterm -e "figlet ghstbskr | lolcat"
-exec xterm -e "cmatrix -ab -C magenta"
+#exec xterm -e "figlet ghstbskr | lolcat"
+exec xterm -e "cmatrix -ab -C magenta" -t cmatrix
+assign [title="cmatrix"] $ws5
+
+### ws6 is for ranger ###
+exec --no-startup-id i3-msg workspace $ws6
+exec xterm -e "ranger" -t ranger
+assign [title="ranger"] $ws6
+
+### ws7 is for vis ###
+exec --no-startup-id i3-msg workspace $ws7
+exec xterm -e "vis" -t vis
+assign [title="vis"] $ws6
 
 # (Being a command-line utility, i3-msg does not support startup notifications,
 #  hence the exec --no-startup-id.)
@@ -136,30 +143,18 @@ for_window [class="^"] split toggle
 #floating_modifier $mod
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+space fullscreen toggle
 
 # kill focused window
 bindsym $mod+Shift+q kill
 bindsym $mod+F4 kill
 bindsym $mod+q kill
 
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -222,7 +217,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # rotate through workspaces using L and R triggers
 bindsym $mod+r workspace next
-bindsym $mod+l workspace back
+bindsym $mod+l workspace prev
 #bindsym Mod1+Shift+Tab workspace prev
 #bindsym $mod+Tab workspace back_and_forth
 
