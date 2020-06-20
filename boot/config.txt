@@ -1,20 +1,24 @@
+# overclock - may be wasting power
+[pi0]
+arm_freq=1100
+gpu_freq=500
+core_freq=500
+sdram_freq=500
+sdram_schmoo=0x02000020
+over_voltage=6
+over_voltage_sdram=2
+dtparam=sd_overclock=100
 
-# Enable audio (loads snd_bcm2835)
-dtparam=audio=on
+#force_turbo=1
 
-# if you plug your tv at the same time as your rpi and that the rpi switches from the hdmi or give a low resolution because tv had no enough time to initialize it
-#boot_delay=3
+# Set the bootloader delay to 0 seconds. The default is 1s if not specified. 
+boot_delay=0
 
 # uncomment if you don't want the rainbow at startup
-#disable_splash=1
+disable_splash=1
 
 # default CEC name
-#cec_osd_name=recalbox
-
-# Overclock
-#gpu_mem_256=128
-#gpu_mem_512=256
-#gpu_mem_1024=512
+cec_osd_name=GhostBoy
 
 avoid_safe_mode=1
 
