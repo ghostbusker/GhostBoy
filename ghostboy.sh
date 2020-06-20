@@ -25,11 +25,10 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus xboxdrv lolcat figlet cmatrix feh compton mpv nemo samba samba-common-bin
+sudo apt -y install git cmus xboxdrv ranger vis lolcat figlet cmatrix feh compton mpv nemo tty-clock samba samba-common-bin 
 
 # download repository and distribute files
 sudo git clone https://github.com/ghostbusker/GhostBoy
-
 cd GhostBoy
 
 # generate directories before adding files
@@ -39,19 +38,19 @@ sudo mkdir /home/pi/.config/i3
 sudo mkdir /home/pi/Music
 
 # move custom config files and scripts to SD card
-sudo mv .config/cmus/rc /home/pi/.config/cmus
-sudo mv .config/cmus/ghostboy.theme /home/pi/.config/cmus/
-sudo mv .config/i3/config /home/pi/.config/i3/
-sudo mv .config/i3status/config /home/pi/.config/i3status/
-sudo mv .config/compton.conf /home/pi/.config/
-sudo mv .config/xboxdrv.cfg /home/pi/.config/
-sudo mv .config/xboxdrv2.cfg /home/pi/.config/
+sudo mv -rf .config/cmus/rc /home/pi/.config/cmus
+sudo mv -rf .config/cmus/ghostboy.theme /home/pi/.config/cmus/
+sudo mv -rf .config/i3/config /home/pi/.config/i3/
+sudo mv -rf .config/i3status/config /home/pi/.config/i3status/
+sudo mv -rf .config/compton.conf /home/pi/.config/
+sudo mv -rf .config/xboxdrv.cfg /home/pi/.config/
+sudo mv -rf .config/xboxdrv2.cfg /home/pi/.config/
 
-sudo mv boot/overlays/dpi24.dtbo /boot/overlays/
-sudo mv boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/
-sudo mv boot/config.txt /boot/
+sudo mv -rf boot/overlays/dpi24.dtbo /boot/overlays/
+sudo mv -rf boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/
+sudo mv -rf boot/config.txt /boot/
 
-sudo mv BuskPod.sh /home/pi/
+sudo mv -rf BuskPod.sh /home/pi/
 
 # set permissions, could be trouble otherwise
 sudo chown pi:pi /home/pi/*
@@ -61,7 +60,8 @@ sudo chown pi:pi /home/pi/.*
 sudo raspi-config nonint do_ssh 0
 
 # boot to shell and log-in as pi
-sudo -u pi raspi-config nonint do_boot_behaviour B2
+#sudo raspi-config nonint do_boot_behaviour B2
+sudo systemctl set-default multi-user.target
 
 # avoid wait for network on boot
 sudo raspi-config nonint do_boot_wait 1
@@ -137,21 +137,26 @@ scrapeWallpapers() { # this whole module not working
 
 scrapeWallpapers
 
-# add shared folder to /etc/samba/smb.conf config file
-sudo cat <<END >> /etc/samba/smb.conf
-wins support = yes
-[BuskPod]
-   comment = BuskPod Music Share
-   path = /home/pi/Music
-   browseable = yes
-   writeable = yes
-   read only = no
-   guest ok = yes
-#   only guest = no
-#   create mask = 0777
-#   directory mask = 0777
-   public = yes
+
+# make music folder sharable to everyone
+sudo chmod 0777 /home/pi/Music/
+
+# add shared Music folder to /etc/samba/smb.conf config file, check first to avoid duplicate entries
+if grep -q "BuskPod" /etc/samba/smb.conf; then
+	echo "BuskPod Samba share already created."
+else
+	echo "adding BuskPod Samba share."
+	sudo cat <<END >> /etc/samba/smb.conf
+	wins support = yes
+	[BuskPod]
+		comment = BuskPod Music Share
+   		path = /home/pi/Music
+   		browseable = yes
+   		writeable = yes
+   		guest ok = yes
+   		public = yes
 END
+fi
 
 # set pi user password as default SMB share password
 #sudo smbpasswd -a pi

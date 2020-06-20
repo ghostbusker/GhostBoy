@@ -8,9 +8,9 @@ set $mod Mod4
 #transparancy effect
 exec compton -f -b
 
-exec "sudo killall xboxdrv"
-exec "sudo xboxdrv &"
-exec "sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv2.cfg &"
+#exec "sudo killall xboxdrv"
+#exec "sudo xboxdrv &"
+#exec "sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv2.cfg &"
 
 #set wallpaper, then change every -n seconds, maybe add some imagemagick to script to make unique
 #exec feh --randomize --bg-fill ~/Pictures/Wallpapers/*
@@ -23,8 +23,8 @@ for_window [urgent=latest] focus
 
 ### ws1 is for Music ###
 exec --no-startup-id i3-msg workspace $ws1
-exec --no-startup-id ( sleep 3s ; cmus-remote -l "/home/pi/Music" ) &
-exec xterm -e "cmus --show-cursor"
+#exec --no-startup-id ( sleep 3s ; cmus-remote -l "/home/pi/Music" ) &
+exec xterm -e "./BuskPod.sh"
 
 ### ws2 is for Terminal ###
 exec --no-startup-id i3-msg workspace $ws2
@@ -33,6 +33,7 @@ exec xterm -e "figlet ghstbskr | lolcat ; bash"
 ### ws1 is for System Monitoring ###
 exec --no-startup-id i3-msg workspace $ws3
 exec xterm -e htop
+exec xterm -e "tty-clock -nsxB"
 
 ### weather stuff on ws4 ###
 exec --no-startup-id i3-msg workspace $ws4
