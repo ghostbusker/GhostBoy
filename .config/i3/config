@@ -18,17 +18,17 @@ for_window [urgent=latest] focus
 
 ### ws1 is for Music ###
 exec --no-startup-id i3-msg workspace $ws1
-exec xterm -e "./BuskPod.sh" -t cmus
+exec xterm -e "./BuskPod.sh" -title cmus
 assign [title="cmus"] $ws1
 
 ### ws2 is for Time ###
 exec --no-startup-id i3-msg workspace $ws2
-exec xterm -e "tty-clock -nsxB" -t tty-clock
+exec xterm -e "tty-clock -nsxB" -title tty-clock
 assign [title="tty-clock"] $ws2
 
 ### ws1 is for System Monitoring ###
 exec --no-startup-id i3-msg workspace $ws3
-exec xterm -e htop -t htop
+exec xterm -e htop -title htop
 assign [title="htop"] $ws3
 
 ### ws4 is for Weather ###
@@ -42,17 +42,17 @@ assign [class="mpv"] $ws4
 ### ws5 is for cMatrix ###
 exec --no-startup-id i3-msg workspace $ws5
 #exec xterm -e "figlet ghstbskr | lolcat"
-exec xterm -e "cmatrix -ab -C magenta" -t cmatrix
+exec xterm -e "cmatrix -ab -C magenta" -title cmatrix
 assign [title="cmatrix"] $ws5
 
 ### ws6 is for ranger ###
 exec --no-startup-id i3-msg workspace $ws6
-exec xterm -e "ranger" -t ranger
+exec xterm -e "ranger" -title ranger
 assign [title="ranger"] $ws6
 
 ### ws7 is for vis ###
 exec --no-startup-id i3-msg workspace $ws7
-exec xterm -e "vis" -t vis
+exec xterm -e "vis" -title vis
 assign [title="vis"] $ws6
 
 # (Being a command-line utility, i3-msg does not support startup notifications,

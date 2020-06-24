@@ -17,7 +17,6 @@ export LC_ALL=$LOCALE
 sudo locale-gen $LOCALE
 sudo dpkg-reconfigure localeslocale-gen $LOCALE
 
-
 # update package list
 sudo apt update
 
