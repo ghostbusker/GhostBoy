@@ -9,14 +9,17 @@ set $mod Mod4
 exec compton -f -b
 
 #set wallpaper, then change every -n seconds, maybe add some imagemagick to script to make unique
-exec watch -n 90 feh --randomize --bg-fill ~/Pictures/Wallpapers/*
+#holy crap the wallpapers are huge, need to be de-rezzed asap. 
+#consider triggering a custom wallpaper for certain workspaces/apps
+#idealy set wallpaper to current song album art
+exec watch -n 900 feh --randomize --bg-fill ~/Pictures/Wallpapers/*
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
 ############# Workspace Setup ##############
 
-### ws1 is for Music ###
+### ws1 is for Music ### Also enables the GameBoy Buttons!
 exec --no-startup-id i3-msg workspace $ws1
 exec xterm -e "./BuskPod.sh" -title cmus
 assign [title="cmus"] $ws1
@@ -50,10 +53,15 @@ exec --no-startup-id i3-msg workspace $ws6
 exec xterm -e "ranger" -title ranger
 assign [title="ranger"] $ws6
 
-### ws7 is for vis ###
-exec --no-startup-id i3-msg workspace $ws7
-exec xterm -e "vis" -title vis
-assign [title="vis"] $ws6
+### ws7 is for visWRONGVISBRO ###
+#exec --no-startup-id i3-msg workspace $ws7
+#exec xterm -e "vis" -title vis
+#assign [title="vis"] $ws7
+
+### ws8 is for cal ###
+exec --no-startup-id i3-msg workspace $ws8
+exec xterm -e "cal -3" -title cal
+assign [title="cal"] $ws8
 
 # (Being a command-line utility, i3-msg does not support startup notifications,
 #  hence the exec --no-startup-id.)
