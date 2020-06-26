@@ -24,8 +24,9 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus ncmpcpp mpd mpc mpv xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock samba samba-common-bin 
-
+sudo apt -y install git cmus ncmpcpp mpd mpc mpv xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock
+yes | sudo apt -y samba samba-common-bin
+ 
 # trying out this cli based player that supports cloud services like youtube, soundcloud, spotify, etc.
 curl -kL https://github.com/tizonia/tizonia-openmax-il/raw/master/tools/install.sh | bash
 
