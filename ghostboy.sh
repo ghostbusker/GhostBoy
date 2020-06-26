@@ -25,8 +25,8 @@ sudo apt update
 
 # install needed apps
 sudo apt -y install git cmus ncmpcpp mpd mpc mpv xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock
-yes | sudo apt -y samba samba-common-bin
- 
+yes -Y | sudo apt -y install samba samba-common-bin   ### still prompts for permission during install
+
 # trying out this cli based player that supports cloud services like youtube, soundcloud, spotify, etc.
 curl -kL https://github.com/tizonia/tizonia-openmax-il/raw/master/tools/install.sh | bash
 
@@ -74,7 +74,7 @@ sudo systemctl set-default multi-user.target
 sudo raspi-config nonint do_boot_wait 1
 
 # make music player script executable
-sudo chmod +x /home/pi/BuskPod.sh
+sudo chmod +x /home/pi/.config/scripts/buskpod.sh
 
 # go straight to desktop after login (this is not the correct way of doing this)
 if grep -q "startx" /home/pi/.profile; then
@@ -155,14 +155,14 @@ if grep -q "BuskPod" /etc/samba/smb.conf; then
 else
 	echo "adding BuskPod Samba share."
 	sudo cat <<END >> /etc/samba/smb.conf
-	wins support = yes
-	[BuskPod]
-		comment = BuskPod Music Share
-   		path = /home/pi/Music
-   		browseable = yes
-   		writeable = yes
-   		guest ok = yes
-   		public = yes
+wins support = yes
+[BuskPod]
+   comment = BuskPod Music Share
+   path = /home/pi/Music
+   browseable = yes
+   writeable = yes
+   guest ok = yes
+   public = yes
 END
 fi
 
