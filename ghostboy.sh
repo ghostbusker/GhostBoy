@@ -38,6 +38,7 @@ cd GhostBoy
 sudo mkdir /home/pi/.config
 sudo mkdir /home/pi/.config/cmus
 sudo mkdir /home/pi/.config/i3
+sudo mkdir /home/pi/.config/scripts
 sudo mkdir /home/pi/Music
 
 # move custom config files and scripts to SD card
@@ -45,6 +46,8 @@ sudo mv -f .config/cmus/rc /home/pi/.config/cmus/rc
 sudo mv -f .config/cmus/ghostboy.theme /home/pi/.config/cmus/ghostboy.theme
 sudo mv -f .config/i3/config /home/pi/.config/i3/config
 sudo mv -f .config/i3status/config /home/pi/.config/i3status/config
+sudo mv -f .config/scripts/safe_shutdown.sh /home/pi/.config/scripts/safe_shutdown.sh
+sudo mv -f .config/scripts/buskpod.sh /home/pi/.config/scripts/buskpod.sh
 sudo mv -f .config/compton.conf /home/pi/.config/compton.conf
 sudo mv -f .config/xboxdrv.cfg /home/pi/.config/xboxdrv.cfg
 #sudo mv -f .config/* /home/pi/.config
@@ -54,8 +57,6 @@ sudo mv -f boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/pwm-audio-pi-zero
 sudo mv -f boot/config.txt /boot/config.txt
 sudo mv -f boot/cmdline.txt /boot/cmdline.txt
 #sudo mv -f boot/* /boot
-
-sudo mv -f BuskPod.sh /home/pi/
 
 # set permissions, could be trouble otherwise
 sudo chown pi:pi /home/pi/*
