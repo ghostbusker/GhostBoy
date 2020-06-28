@@ -55,7 +55,6 @@ sudo mv -f .config/ranger/rc.conf /home/pi/.config/ranger/rc.conf
 #sudo mv -f .config/scripts/weather.sh /home/pi/.config/scripts/weather.sh
 sudo mv -f .config/scripts/* /home/pi/.config/scripts
 
-
 sudo mv -f .config/compton.conf /home/pi/.config/compton.conf
 sudo mv -f .config/xboxdrv.cfg /home/pi/.config/xboxdrv.cfg
 #sudo mv -f .config/* /home/pi/.config
@@ -65,6 +64,9 @@ sudo mv -f boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/pwm-audio-pi-zero
 sudo mv -f boot/config.txt /boot/config.txt
 sudo mv -f boot/cmdline.txt /boot/cmdline.txt
 #sudo mv -f boot/* /boot
+
+# make all the scripts executable
+sudo chmod +x /home/pi/.config/scripts/*
 
 # set permissions, could be trouble otherwise
 sudo chown pi:pi /home/pi/*
@@ -91,7 +93,7 @@ else
 fi
 
 # set hostname
-sudo hostname GhostBoy
+sudo hostname buskpod
 
 desktopFromScratch () {
   echo "installer: installing graphical desktop environment"
