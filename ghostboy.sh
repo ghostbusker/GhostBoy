@@ -39,6 +39,7 @@ cd GhostBoy
 sudo mkdir /home/pi/.config
 sudo mkdir /home/pi/.config/cmus
 sudo mkdir /home/pi/.config/i3
+sudo mkdir /home/pi/.config/ranger
 sudo mkdir /home/pi/.config/scripts
 sudo mkdir /home/pi/Music
 
@@ -47,8 +48,14 @@ sudo mv -f .config/cmus/rc /home/pi/.config/cmus/rc
 sudo mv -f .config/cmus/ghostboy.theme /home/pi/.config/cmus/ghostboy.theme
 sudo mv -f .config/i3/config /home/pi/.config/i3/config
 sudo mv -f .config/i3status/config /home/pi/.config/i3status/config
-sudo mv -f .config/scripts/safe_shutdown.sh /home/pi/.config/scripts/safe_shutdown.sh
-sudo mv -f .config/scripts/buskpod.sh /home/pi/.config/scripts/buskpod.sh
+sudo mv -f .config/ranger/rc.conf /home/pi/.config/ranger/rc.conf
+
+#sudo mv -f .config/scripts/buskpod.sh /home/pi/.config/scripts/buskpod.sh
+#sudo mv -f .config/scripts/safe_shutdown.sh /home/pi/.config/scripts/safe_shutdown.sh
+#sudo mv -f .config/scripts/weather.sh /home/pi/.config/scripts/weather.sh
+sudo mv -f .config/scripts/* /home/pi/.config/scripts
+
+
 sudo mv -f .config/compton.conf /home/pi/.config/compton.conf
 sudo mv -f .config/xboxdrv.cfg /home/pi/.config/xboxdrv.cfg
 #sudo mv -f .config/* /home/pi/.config
@@ -84,7 +91,7 @@ else
 fi
 
 # set hostname
-sudo hostname BuskPod
+sudo hostname GhostBoy
 
 desktopFromScratch () {
   echo "installer: installing graphical desktop environment"
