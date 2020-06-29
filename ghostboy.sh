@@ -24,11 +24,11 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus ncmpcpp mpd mpc mpv xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock
+sudo apt -y install git cmus ncmpcpp mpd mpc mpv beets xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock
 yes -Y | sudo apt -y install samba samba-common-bin   ### still prompts for permission during install
 
-# trying out this cli based player that supports cloud services like youtube, soundcloud, spotify, etc.
-curl -kL https://github.com/tizonia/tizonia-openmax-il/raw/master/tools/install.sh | bash
+# try out this cli based player that supports cloud services like youtube, soundcloud, spotify, etc.
+#curl -kL https://github.com/tizonia/tizonia-openmax-il/raw/master/tools/install.sh | bash
 
 # download repository and distribute files (remove old copy first)
 sudo rm -rf GhostBoy
@@ -37,6 +37,7 @@ cd GhostBoy
 
 # generate directories before adding files
 sudo mkdir /home/pi/.config
+sudo mkdir /home/pi/.config/beets
 sudo mkdir /home/pi/.config/cmus
 sudo mkdir /home/pi/.config/i3
 sudo mkdir /home/pi/.config/ranger
@@ -49,6 +50,7 @@ sudo mv -f .config/cmus/ghostboy.theme /home/pi/.config/cmus/ghostboy.theme
 sudo mv -f .config/i3/config /home/pi/.config/i3/config
 sudo mv -f .config/i3status/config /home/pi/.config/i3status/config
 sudo mv -f .config/ranger/rc.conf /home/pi/.config/ranger/rc.conf
+sudo mv -f .config/beets/config.yaml /home/pi/.config/beets/config.yaml
 
 #sudo mv -f .config/scripts/buskpod.sh /home/pi/.config/scripts/buskpod.sh
 #sudo mv -f .config/scripts/safe_shutdown.sh /home/pi/.config/scripts/safe_shutdown.sh
@@ -69,14 +71,14 @@ sudo mv -f boot/cmdline.txt /boot/cmdline.txt
 sudo chmod +x /home/pi/.config/scripts/*
 
 # set permissions, could be trouble otherwise
-sudo chown pi:pi /home/pi/*
-sudo chown pi:pi /home/pi/.*
-
+sudo chown -R pi:pi /home/pi/*
+sudo chown -R pi:pi /home/pi/.*
+sudo chown -R pi:pi /home/pi/.config/*
 # enable ssh
 sudo raspi-config nonint do_ssh 0
 
 # boot to shell and log-in as pi - NOT WORKING, MUST BE DONE MANUALLY AFTER SETUP via raspi-config
-#sudo raspi-config nonint do_boot_behaviour B2
+sudo raspi-config nonint do_boot_behaviour B2
 sudo systemctl set-default multi-user.target
 
 # avoid wait for network on boot
