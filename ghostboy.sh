@@ -1,6 +1,14 @@
 #!/bin/bash
 # ghostbusker's GhostBoy BuskPod installer
 
+## To do:
+## remove MPV keyboard shortcuts to avoid weathermap f-ups
+## button combo should trigger D-menu shutdown / reboot menu
+## fix top bar to show IP and HDD Space
+## fix bottom bar to only show 
+## cava visualizer was finally working, add it to the install script.
+## finish patching together OCR-A font integration and ~/.Xresources
+
 #set localization
 TIMEZONE=US/Eastern
 LOCALE=en_US.UTF-8
@@ -24,8 +32,11 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus ncmpcpp mpd mpc mpv beets xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock
+sudo apt -y install git cmus ncmpcpp mpd mpc mpv beets xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock fonts-ocr-a
 yes -Y | sudo apt -y install samba samba-common-bin   ### still prompts for permission during install
+
+# update font cache
+sudo fc-cache -f -v
 
 # try out this cli based player that supports cloud services like youtube, soundcloud, spotify, etc.
 #curl -kL https://github.com/tizonia/tizonia-openmax-il/raw/master/tools/install.sh | bash
@@ -45,6 +56,8 @@ sudo mkdir /home/pi/.config/scripts
 sudo mkdir /home/pi/Music
 
 # move custom config files and scripts to SD card
+sudo mv -f console-setup /etc/default/console-setup
+sudo mv -f .Xresources /home/pi/.Xresources
 sudo mv -f .config/cmus/rc /home/pi/.config/cmus/rc
 sudo mv -f .config/cmus/ghostboy.theme /home/pi/.config/cmus/ghostboy.theme
 sudo mv -f .config/i3/config /home/pi/.config/i3/config

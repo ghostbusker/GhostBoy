@@ -2,5 +2,6 @@
 
 nohup sudo rmmod xpad &>/dev/null &
 nohup sudo xboxdrv --detach-kernel-driver --silent --quiet --config /home/pi/.config/xboxdrv.cfg &>/dev/null &
-( sleep 3; cmus-remote -l "/home/pi/Music" ) &
-cmus --show-cursor
+xterm -e cmus --show-cursor
+cmus-remote -l "/home/pi/Music"
+

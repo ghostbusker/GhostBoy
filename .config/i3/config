@@ -21,7 +21,7 @@ for_window [urgent=latest] focus
 
 ### ws1 is for Music ### Also enables the GameBoy Buttons!
 exec --no-startup-id i3-msg workspace $ws1
-exec xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "cmus" -e "bash /home/pi/.config/scripts/buskpod.sh"
+exec bash "/home/pi/.config/scripts/buskpod.sh"
 assign [title="cmus"] $ws1
 
 ### ws2 is for Time ###
