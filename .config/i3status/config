@@ -15,6 +15,8 @@ general {
         interval = 5
 }
 
+order += "ipv6"
+
 order += "wireless _first_"
 wireless _first_ {
         format_up = "W: (%quality at %essid) %ip"
@@ -26,6 +28,11 @@ ethernet _first_ {
         # if you use %speed, i3status requires root privileges
         format_up = "E: %ip (%speed)"
         format_down = "E: down"
+}
+
+order += "path_exists VPN"
+path_exists VPN {
+		path = "/proc/sys/net/ipv4/conf/tun0"
 }
 
 order += "disk /"
