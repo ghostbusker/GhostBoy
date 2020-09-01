@@ -32,7 +32,7 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus ncmpcpp mpd mpc mpv beets xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock fonts-ocr-a
+sudo apt -y install git cmus ncmpcpp mpd mpc mpv beets xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock fonts-ocr-a neofetch
 yes -Y | sudo apt -y install samba samba-common-bin   ### still prompts for permission during install
 
 # update font cache
@@ -110,9 +110,6 @@ if grep -q "startx" /home/pi/.profile; then
 else
 	echo "startx" >> /home/pi/.profile
 fi
-
-# set hostname
-sudo hostname buskpod
 
 desktopFromScratch () {
   echo "installer: installing graphical desktop environment"
@@ -197,6 +194,9 @@ wins support = yes
    public = yes
 END
 fi
+
+# set hostname
+sudo hostname buskpod
 
 # set pi user password as default SMB share password
 #sudo smbpasswd -a pi
