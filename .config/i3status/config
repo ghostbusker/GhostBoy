@@ -15,7 +15,7 @@ general {
         interval = 5
 }
 
-order += "ipv6"
+#order += "ipv6"
 
 order += "wireless _first_"
 wireless _first_ {
@@ -23,24 +23,24 @@ wireless _first_ {
         format_down = "W: down"
 }
 
-order += "ethernet _first_"
-ethernet _first_ {
-        # if you use %speed, i3status requires root privileges
-        format_up = "E: %ip (%speed)"
-        format_down = "E: down"
-}
+#order += "ethernet _first_"
+#ethernet _first_ {
+#        # if you use %speed, i3status requires root privileges
+#        format_up = "E: %ip (%speed)"
+#        format_down = "E: down"
+#}
 
-order += "path_exists VPN"
-path_exists VPN {
-		path = "/proc/sys/net/ipv4/conf/tun0"
-}
+#order += "path_exists VPN"
+#path_exists VPN {
+#		path = "/proc/sys/net/ipv4/conf/tun0"
+#}
 
-order += "disk /"
-disk "/" {
-        format = "%avail"
-}
+#order += "disk /"
+#disk "/" {
+#        format = "%avail"
+#}
 
-order += "tztime local"
-tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
-}
+#order += "tztime local"
+#tztime local {
+#        format = "%Y-%m-%d %H:%M:%S"
+#}

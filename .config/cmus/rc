@@ -27,42 +27,14 @@ set color_win_sel_fg=gray
 set color_win_title_bg=blue
 set color_win_title_fg=white
 
-##///BELOW THIS LINE ARE THINGS TO TEST _ FILE BROKEN UNTIL THEN
-show_hidden (false)
-	Display hidden files in browser.
+set show_hidden=true
+set show_current_bitrate=true
 
-show_current_bitrate (false)
-	Display current bitrate in the status lines.
 
-show_playback_position (true)
-	Display elapsed (or remaining) time in the status line. Can be disabled
-	to e.g. not trigger tmux's activity monitor.
-
-show_remaining_time (false)
-	Display remaining time instead of elapsed time.
-
-start_view (tree) [tree, sorted, playlist, queue, browser, filters, settings]
-	Specify the view that gets shown when cmus starts.
-
-status_display_program () [command]
-	This command, if not empty, is run every time cmus' status changes.
-	It can be used to display currently playing track on desktop
-	background or panel for example.  See
-	`/usr/share/doc/cmus/examples/cmus-status-display`.
-
-time_show_leading_zero (true)
-	Pad durations of less than 10 minutes with a leading 0
-
-wrap_search (true)
-	Controls whether the search wraps around the end.
-
-continue (true)
-	Continue playing after current track finishes.
-
-	@pre
-	:set format_trackwin= %02n. %t %{?y?(%y)}%= %d
-	:set format_current= %n. %-30t %40F (%y)%= %d
-	:set format_current= %a - %l - %02n. %t%= %{bitrate}Kbps %g %y
-	:set format_playlist= %f%= %6{rg_track_gain} dB  %8{rg_track_peak}
-	:set format_playlist= %-25%a %-15%l %3n. %t%= %y %d
-	@endpre
+set show_playback_position=true
+set show_remaining_time=true
+set start_view=filters
+# (tree) [tree, sorted, playlist, queue, browser, filters, settings]
+set time_show_leading_zero=true
+set wrap_search=true
+set continue=true

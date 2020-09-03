@@ -55,11 +55,11 @@ sudo chown -R pi /home/pi/.config
 #sudo mkdir /home/pi/.config/i3
 #sudo mkdir /home/pi/.config/ranger
 #sudo mkdir /home/pi/.config/scripts
-#sudo mkdir /home/pi/Music
+sudo mkdir /home/pi/Music
 
 # move custom config files and scripts to SD card
 #udo mv -f console-setup /etc/default/console-setup
-#sudo mv -f .Xresources /home/pi/.Xresources
+sudo mv -f .Xresources /home/pi/.Xresources
 #sudo mv -f .config/cmus/rc /home/pi/.config/cmus/rc
 #sudo mv -f .config/cmus/ghostboy.theme /home/pi/.config/cmus/ghostboy.theme
 #sudo mv -f .config/i3/config /home/pi/.config/i3/config
@@ -95,8 +95,8 @@ sudo chown -R pi /home/pi/.config/*
 sudo raspi-config nonint do_ssh 0
 
 # boot to shell and log-in as pi - NOT WORKING, MUST BE DONE MANUALLY AFTER SETUP via raspi-config
-sudo raspi-config nonint do_boot_behaviour B2
-sudo systemctl set-default multi-user.target
+sudo -u pi raspi-config nonint do_boot_behaviour B2
+sudo -u pi systemctl set-default multi-user.target
 
 # avoid wait for network on boot
 sudo raspi-config nonint do_boot_wait 1
@@ -212,5 +212,7 @@ sudo hostname buskpod
 # run i3 wm and show multiple pages of info
 
 # sound quality is passable but in need of upgrade,
+
+# tried MPD, MOC, CMUS, and a few other players. Musikcube looks cool
 
 # conside rusing pcm5102 DAC module (headphone amp needed) for audio

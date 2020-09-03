@@ -1,6 +1,6 @@
 # from ghostbuskers dotfiles
 xterm*faceName: OCRAbold
-xterm*faceSize: 12
+xterm*faceSize: 8
 xterm*loginShell: false
 #xterm*vt100*geometry: 80x50
 xterm*saveLines: 2000
