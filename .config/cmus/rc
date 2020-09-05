@@ -29,12 +29,7 @@ set color_win_title_fg=white
 
 set show_hidden=true
 set show_current_bitrate=true
-
-
 set show_playback_position=true
 set show_remaining_time=true
-set start_view=filters
-# (tree) [tree, sorted, playlist, queue, browser, filters, settings]
-set time_show_leading_zero=true
 set wrap_search=true
 set continue=true

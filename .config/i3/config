@@ -21,12 +21,45 @@ for_window [urgent=latest] focus
 
 # buskpod.sh is doing most of the heavy lifting layout-wise
 exec "/home/pi/.config/scripts/buskpod.sh &"
+
+#WS1 Music
+exec xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "cmus" -e cmus --show-cursor
+exec cmus-remote -l "/home/pi/Music"
+#exec --no-startup-id i3-msg assign [title="cmus"] $ws1
+
+#WS2 Weather
+#fetch a new weather image every 15 minutes and rename it weather.png
+exec watch -n 900 wget -O /tmp/weather.png https://s.w-x.co/staticmaps/wu/wxtype/county_loc/csg/animate.png
+#exec xterm -e bash ~/.config/scripts/weather.sh
+exec mpv --loop --no-osc --background=0/0/0/0 --framedrop=vo /tmp/weather.png
+#exec --no-startup-id i3-msg assign [class="mpv"] $ws2
+
+#WS3 News / time
+exec xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "tty-clock" -e "tty-clock -cns"
+#exec --no-startup-id i3-msg assign [title="tty-clock"] $ws3
+
+#WS4 Ranger
+exec xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "ranger" -e "ranger"
+#exec --no-startup-id i3-msg assign [title="ranger"] $ws4
+
+#WS5 Games
+exec xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "htop" -e "htop"
+#exec --no-startup-id i3-msg assign [title="htop"] $ws5
+
+#WS6 Movies
+exec xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T "cmatrix" -e "cmatrix -ab -C magenta"
+#exec --no-startup-id i3-msg assign [title="cmatrix"] $ws6
+
+#WS7 Podcasts
+exec lxterminal -t "castero" -e "castero"
+
 assign [title="cmus"] $ws1
 assign [class="mpv"] $ws2
 assign [title="tty-clock"] $ws3
 assign [title="ranger"] $ws4
 assign [title="htop"] $ws5
 assign [title="cmatrix"] $ws6
+assign [title="castero"] $ws7
 
 ############Mouse#############
 
@@ -135,16 +168,16 @@ bindsym $mod+e layout toggle split
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Music"
-set $ws2 "2: Term"
-set $ws3 "3: Sys"
-set $ws4 "4: Weather"
-set $ws5 "5: Matrix"
-set $ws6 "6: Six"
-set $ws7 "7: Seven"
-set $ws8 "8: Eight"
-set $ws9 "9: Nine"
-set $ws10 "10: Ten"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "X"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
