@@ -5,9 +5,25 @@
 ## remove MPV keyboard shortcuts to avoid weathermap f-ups
 ## button combo should trigger D-menu shutdown / reboot menu
 ## fix top bar to show IP and HDD Space
-## fix bottom bar to only show 
-## cava visualizer was finally working, add it to the install script.
-## finish patching together OCR-A font integration and ~/.Xresources
+## fix bottom bar to show desktop and time date
+# set pi user password as default SMB share password
+#sudo smbpasswd -a pi
+
+# add graphical refrence to first screen showing buttons and how to navigate
+
+# create custom whiptail menu script that controls basic GhostBoy functions, leave it accesable on last workspace
+
+# add custom boot animation, backgrounds, and graphics
+
+# add tmux and cava to provide a real-time eq effect?
+
+# tried MPD, MOC, CMUS, and a few other players. Musikcube looks cool
+
+# conside rusing pcm5102 DAC module (headphone amp needed) for audio
+
+# had to use "sudo raspi-config" and then the menu (gross) to set Headphones (1) instead of HDMI (0) for the default audio output.
+
+# set alsa mixer volume to 100% and save as default
 
 #set localization
 TIMEZONE=US/Eastern
@@ -32,7 +48,7 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus ncmpcpp mpd mpc mpv beets xboxdrv ranger vis lolcat figlet cmatrix feh compton nemo tty-clock fonts-ocr-a neofetch
+sudo apt -y install git cmus mpv xboxdrv ranger lolcat figlet cmatrix feh compton nemo tty-clock fonts-ocr-a neofetch lxterminal # ncmpcpp mpd mpc beets
 yes -Y | sudo apt -y install samba samba-common-bin   ### still prompts for permission during install
 
 # update font cache
@@ -58,23 +74,23 @@ sudo chown -R pi /home/pi/.config
 sudo mkdir /home/pi/Music
 
 # move custom config files and scripts to SD card
-#udo mv -f console-setup /etc/default/console-setup
-sudo mv -f .Xresources /home/pi/.Xresources
+sudo mv -f * /home/pi
+sudo mv -f .* /home/pi
+sudo mv -f .config/* /home/pi/.config
+#sudo mv -f console-setup /etc/default/console-setup
+#sudo mv -f .Xresources /home/pi/.Xresources
 #sudo mv -f .config/cmus/rc /home/pi/.config/cmus/rc
 #sudo mv -f .config/cmus/ghostboy.theme /home/pi/.config/cmus/ghostboy.theme
 #sudo mv -f .config/i3/config /home/pi/.config/i3/config
 #sudo mv -f .config/i3status/config /home/pi/.config/i3status/config
 #sudo mv -f .config/ranger/rc.conf /home/pi/.config/ranger/rc.conf
 #sudo mv -f .config/beets/config.yaml /home/pi/.config/beets/config.yaml
-
 #sudo mv -f .config/scripts/buskpod.sh /home/pi/.config/scripts/buskpod.sh
 #sudo mv -f .config/scripts/safe_shutdown.sh /home/pi/.config/scripts/safe_shutdown.sh
 #sudo mv -f .config/scripts/weather.sh /home/pi/.config/scripts/weather.sh
 #sudo mv -f .config/scripts/* /home/pi/.config/scripts
-
 #sudo mv -f .config/compton.conf /home/pi/.config/compton.conf
 #sudo mv -f .config/xboxdrv.cfg /home/pi/.config/xboxdrv.cfg
-sudo mv -f .config/* /home/pi/.config
 
 sudo mv -f boot/overlays/dpi24.dtbo /boot/overlays/dpi24.dtbo
 sudo mv -f boot/overlays/pwm-audio-pi-zero.dtbo /boot/overlays/pwm-audio-pi-zero.dtbo
@@ -82,10 +98,10 @@ sudo mv -f boot/config.txt /boot/config.txt
 sudo mv -f boot/cmdline.txt /boot/cmdline.txt
 #sudo mv -f boot/* /boot
 
-sudo mv -f * /home/pi
-
 # make all the scripts executable
 sudo chmod +x /home/pi/.config/scripts/*
+# make music player script executable
+#sudo chmod +x /home/pi/.config/scripts/buskpod.sh
 
 # set permissions, could be trouble otherwise
 sudo chown -R pi /home/pi/*
@@ -98,11 +114,12 @@ sudo raspi-config nonint do_ssh 0
 sudo -u pi raspi-config nonint do_boot_behaviour B2
 sudo -u pi systemctl set-default multi-user.target
 
+# set audio output to Headphone (never HDMI, useful for testing)
+sudo raspi-config nonint do_audio 1
+
 # avoid wait for network on boot
 sudo raspi-config nonint do_boot_wait 1
 
-# make music player script executable
-sudo chmod +x /home/pi/.config/scripts/buskpod.sh
 
 # go straight to desktop after login (this is not the correct way of doing this)
 if grep -q "startx" /home/pi/.profile; then
@@ -206,21 +223,4 @@ fi
 # set hostname
 sudo hostname buskpod
 
-# set pi user password as default SMB share password
-#sudo smbpasswd -a pi
-
-# add graphical refrence to first screen showing buttons and how to navigate
-
-# create custom whiptail menu script that controls basic GhostBoy functions, leave it accesable on last workspace
-
-# add custom boot animation, backgrounds, and graphics
-
-# add tmux and vis to provide a real-time eq effect?
-
-# run i3 wm and show multiple pages of info
-
-# sound quality is passable but in need of upgrade,
-
-# tried MPD, MOC, CMUS, and a few other players. Musikcube looks cool
-
-# conside rusing pcm5102 DAC module (headphone amp needed) for audio
+echo install complete
