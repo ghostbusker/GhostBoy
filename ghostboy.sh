@@ -132,7 +132,7 @@ desktopFromScratch () {
 
 desktopFromScratch
 
-scrapeWallpapers() { # this whole module not working
+scrapeWallpapers() {
   echo "installer: scraping wallpapers from the web" #shamelessly
   sudo mkdir /home/pi/Pictures/
   sudo mkdir /home/pi/Pictures/Wallpapers
@@ -174,6 +174,14 @@ scrapeWallpapers() { # this whole module not working
 
 scrapeWallpapers
 
+
+# Install a podcast player
+installCastero() {
+sudo apt install python3-pip sqlite3 mpv libmpv-dev
+sudo pip3 install castero
+}
+
+installCastero	
 
 # make music folder sharable to everyone
 sudo chmod 0777 /home/pi/Music/
