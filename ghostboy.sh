@@ -48,11 +48,12 @@ sudo apt update
 #sudo apt dist-upgrade
 
 # install needed apps
-sudo apt -y install git cmus mpv xboxdrv ranger lolcat figlet cmatrix feh compton nemo tty-clock fonts-ocr-a neofetch lxterminal # ncmpcpp mpd mpc beets
+#sudo apt -y install git cmus mpv xboxdrv ranger lolcat figlet cmatrix feh compton nemo tty-clock fonts-ocr-a neofetch lxterminal # ncmpcpp mpd mpc beets
+sudo apt -y install git cmus xboxdrv ranger lolcat figlet cmatrix neofetch
 yes -Y | sudo apt -y install samba samba-common-bin   ### still prompts for permission during install
 
 # update font cache
-sudo fc-cache -f -v
+#sudo fc-cache -f -v
 
 # try out this cli based player that supports cloud services like youtube, soundcloud, spotify, etc.
 #curl -kL https://github.com/tizonia/tizonia-openmax-il/raw/master/tools/install.sh | bash
@@ -147,7 +148,7 @@ desktopFromScratch () {
   sudo make install
 }
 
-desktopFromScratch
+#desktopFromScratch
 
 scrapeWallpapers() {
   echo "installer: scraping wallpapers from the web" #shamelessly
@@ -189,7 +190,7 @@ scrapeWallpapers() {
 #  sudo wget --output-document=b24cf25c4a36.jpg https://images.unsplash.com/photo-1472145246862-b24cf25c4a36
 }
 
-scrapeWallpapers
+#scrapeWallpapers
 
 
 # Install a podcast player
@@ -208,7 +209,7 @@ if grep -q "BuskPod" /etc/samba/smb.conf; then
 	echo "BuskPod Samba share already created."
 else
 	echo "adding BuskPod Samba share."
-	sudo cat <<END >> /etc/samba/smb.conf
+	sudo cat <<EOF >> /etc/samba/smb.conf
 wins support = yes
 [BuskPod]
    comment = BuskPod Music Share
@@ -217,7 +218,7 @@ wins support = yes
    writeable = yes
    guest ok = yes
    public = yes
-END
+EOF
 fi
 
 # set hostname

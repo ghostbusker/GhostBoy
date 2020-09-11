@@ -1,5 +1,0 @@
-directory: /home/pi/music
-library: /home/pi/music/library.blb
-plugins: fetchart missing embedart
-fetchart:
-    maxwidth: 500
